@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add knight</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+
+    <form class="form-horizontal" th:object="${knight}" th:action="@{/assignQuest}" th:method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{name}"/>
+        <input type="hidden" th:field="*{age}"/>
+
+        <div class="form-group">
+            <label class="control-label">Wykonaj zadanie</label>
+            <select th:field="*{hotel}">
+                <option th:each="hotel : ${hotels}"
+                        th:value="${hotel.id}"
+                        th:text="${hotel.name}">? .</option>
+            </select>
+        </div>
+
+        <input type="hidden" th:field="*{id}"/>
+        <ul>
+
+            <label class="control-label">Zamiesszkaj w hotelu</label>
+            <p th:each="quest : ${notStartedQuests}">
+                <input type="radio" th:field="*{id}" th:value="${quest.id}" />
+                <label th:text="${quest.description}"></label>
+            </p>
+        </ul>
+
+        <ul>
+            <li th:each="weapon : ${allweapons}">
+                <input type="checkbox" th:field="*{name}" th:value="${weapon.id}" />
+                <label th:text="${weapon.name}">Heating</label>
+            </li>
+        </ul>
+
+        <div class="row">
+            <button type="submit" class="btn btn-default">Wyslij rycerza</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
